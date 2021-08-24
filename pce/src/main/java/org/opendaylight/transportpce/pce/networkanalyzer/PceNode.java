@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 
+import org.opendaylight.transportpce.common.OpenRoadMConstants;
 import org.opendaylight.transportpce.pce.SortPortsByName;
 import org.opendaylight.yang.gen.v1.http.org.openroadm.common.network.rev181130.TerminationPoint1;
 import org.opendaylight.yang.gen.v1.http.org.openroadm.network.topology.rev181130.Node1;
@@ -169,7 +170,7 @@ public class PceNode {
                 break;
             case XPONDER :
                 // HARD CODED 40
-                for (long i = 1; i <= 40; i++) {
+                for (long i = 1; i <= OpenRoadMConstants.MAX_AVAILABLE_WAVELENGTH; i++) {
                     this.availableWLindex.add(i);
                 }
                 break;

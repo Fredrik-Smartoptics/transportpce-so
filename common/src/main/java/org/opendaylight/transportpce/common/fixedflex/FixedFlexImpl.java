@@ -8,6 +8,8 @@
 
 package org.opendaylight.transportpce.common.fixedflex;
 
+import org.opendaylight.transportpce.common.OpenRoadMConstants;
+
 public final class FixedFlexImpl implements FixedFlexInterface {
     private long index;
     private double centerFrequency;
@@ -15,11 +17,11 @@ public final class FixedFlexImpl implements FixedFlexInterface {
     private double stop;
     private double wavelength;
     // wavelengthSpacing is in GHz
-    double wavelengthSpacing = 100.0;
+//    double wavelengthSpacing = 100.0;
     // endFrequency is in THz
-    final double endFrequency = 196.0;
+//    final double endFrequency = 196.0;
     // java double is double float - d or D is appended to treat it explicitly as double float
-    final double precision = 100d;
+//    final double precision = 100d;
 
     public FixedFlexImpl(Long index, double centreFrequency, double start, double stop, double wavelength) {
         this.index = index;
@@ -39,15 +41,15 @@ public final class FixedFlexImpl implements FixedFlexInterface {
 
     public FixedFlexImpl(long wlIndex) {
         this.index = wlIndex;
-        this.centerFrequency = endFrequency - (wlIndex - 1) * wavelengthSpacing / 1000;
+        this.centerFrequency = OpenRoadMConstants.END_FREQUENCY - (wlIndex - 1) * OpenRoadMConstants.WAVELENGTH_SPACING / 1000;
         this.wavelength = (299792458 / this.centerFrequency) / 1000;
         // Truncate the value to the two decimal places
-        this.centerFrequency = Math.round(this.centerFrequency * precision) / precision;
-        this.start = this.centerFrequency - (wavelengthSpacing / 2) / 1000;
-        this.start = Math.round(this.start * precision) / precision;
-        this.stop = this.centerFrequency + (wavelengthSpacing / 2) / 1000;
-        this.stop = Math.round(this.stop * precision) / precision;
-        this.wavelength = Math.round(this.wavelength * precision) / precision;
+        this.centerFrequency = Math.round(this.centerFrequency * OpenRoadMConstants.PRECISION) / OpenRoadMConstants.PRECISION;
+        this.start = this.centerFrequency - (OpenRoadMConstants.WAVELENGTH_SPACING / 2) / 1000;
+        this.start = Math.round(this.start * OpenRoadMConstants.PRECISION) / OpenRoadMConstants.PRECISION;
+        this.stop = this.centerFrequency + (OpenRoadMConstants.WAVELENGTH_SPACING / 2) / 1000;
+        this.stop = Math.round(this.stop * OpenRoadMConstants.PRECISION) / OpenRoadMConstants.PRECISION;
+        this.wavelength = Math.round(this.wavelength * OpenRoadMConstants.PRECISION) / OpenRoadMConstants.PRECISION;
     }
 
     @Override
@@ -57,14 +59,14 @@ public final class FixedFlexImpl implements FixedFlexInterface {
      **/
     public FixedFlexImpl getFixedFlexWaveMapping(long wlIndex) {
         FixedFlexImpl fixedFlex = new FixedFlexImpl();
-        fixedFlex.centerFrequency = endFrequency - (wlIndex - 1) * wavelengthSpacing / 1000;
-        fixedFlex.centerFrequency = Math.round(fixedFlex.centerFrequency * precision) / precision;
+        fixedFlex.centerFrequency = OpenRoadMConstants.END_FREQUENCY - (wlIndex - 1) * OpenRoadMConstants.WAVELENGTH_SPACING / 1000;
+        fixedFlex.centerFrequency = Math.round(fixedFlex.centerFrequency * OpenRoadMConstants.PRECISION) / OpenRoadMConstants.PRECISION;
         fixedFlex.wavelength = (299792458 / fixedFlex.centerFrequency) / 1000;
-        fixedFlex.wavelength = Math.round(fixedFlex.wavelength * precision) / precision;
-        fixedFlex.start = fixedFlex.centerFrequency - (wavelengthSpacing / 2) / 1000;
-        fixedFlex.start = Math.round(fixedFlex.start * precision) / precision;
-        fixedFlex.stop = fixedFlex.centerFrequency + (wavelengthSpacing / 2) / 1000;
-        fixedFlex.stop = Math.round(fixedFlex.stop * precision) / precision;
+        fixedFlex.wavelength = Math.round(fixedFlex.wavelength * OpenRoadMConstants.PRECISION) / OpenRoadMConstants.PRECISION;
+        fixedFlex.start = fixedFlex.centerFrequency - (OpenRoadMConstants.WAVELENGTH_SPACING / 2) / 1000;
+        fixedFlex.start = Math.round(fixedFlex.start * OpenRoadMConstants.PRECISION) / OpenRoadMConstants.PRECISION;
+        fixedFlex.stop = fixedFlex.centerFrequency + (OpenRoadMConstants.WAVELENGTH_SPACING / 2) / 1000;
+        fixedFlex.stop = Math.round(fixedFlex.stop * OpenRoadMConstants.PRECISION) / OpenRoadMConstants.PRECISION;
         fixedFlex.index = wlIndex;
         return fixedFlex;
     }

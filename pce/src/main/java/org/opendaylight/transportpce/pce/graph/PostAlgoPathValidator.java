@@ -17,13 +17,14 @@ import org.opendaylight.transportpce.pce.networkanalyzer.PceResult;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.network.rev180226.NodeId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.opendaylight.transportpce.common.OpenRoadMConstants;
 
 public class PostAlgoPathValidator {
     /* Logging. */
     private static final Logger LOG = LoggerFactory.getLogger(PceGraph.class);
 
     // TODO hard-coded 40
-    private static final int MAX_WAWELENGTH = 40;
+//    private static final int MAX_WAWELENGTH = 40;
 
     public PceResult checkPath(GraphPath<String, PceGraphEdge> path,
             Map<NodeId, PceNode> allPceNodes, PceResult pceResult) {
@@ -53,7 +54,7 @@ public class PostAlgoPathValidator {
     private Long chooseWavelength(GraphPath<String, PceGraphEdge> path, Map<NodeId, PceNode> allPceNodes) {
         Long wavelength = -1L;
 
-        for (long i = 1; i <= MAX_WAWELENGTH; i++) {
+        for (long i = 1; i <= OpenRoadMConstants.MAX_AVAILABLE_WAVELENGTH; i++) {
             boolean completed = true;
             LOG.debug("In chooseWavelength: {} {}", path.getLength(), path.toString());
             for (PceGraphEdge edge : path.getEdgeList()) {
