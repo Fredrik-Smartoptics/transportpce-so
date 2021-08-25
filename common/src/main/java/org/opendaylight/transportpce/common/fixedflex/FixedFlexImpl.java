@@ -16,12 +16,6 @@ public final class FixedFlexImpl implements FixedFlexInterface {
     private double start;
     private double stop;
     private double wavelength;
-    // wavelengthSpacing is in GHz
-//    double wavelengthSpacing = 100.0;
-    // endFrequency is in THz
-//    final double endFrequency = 196.0;
-    // java double is double float - d or D is appended to treat it explicitly as double float
-//    final double precision = 100d;
 
     public FixedFlexImpl(Long index, double centreFrequency, double start, double stop, double wavelength) {
         this.index = index;

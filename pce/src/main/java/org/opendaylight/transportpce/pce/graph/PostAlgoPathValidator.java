@@ -23,9 +23,6 @@ public class PostAlgoPathValidator {
     /* Logging. */
     private static final Logger LOG = LoggerFactory.getLogger(PceGraph.class);
 
-    // TODO hard-coded 40
-//    private static final int MAX_WAWELENGTH = 40;
-
     public PceResult checkPath(GraphPath<String, PceGraphEdge> path,
             Map<NodeId, PceNode> allPceNodes, PceResult pceResult) {
 

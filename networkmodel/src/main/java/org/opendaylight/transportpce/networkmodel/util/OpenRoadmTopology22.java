@@ -536,19 +536,6 @@ public class OpenRoadmTopology22 {
         }
     }
 
-    private List<AvailableWavelengths> create40AvalWaveDegree() {
-        List<AvailableWavelengths> waveList = new ArrayList<>();
-
-        for (int i = 1; i <= 40; i++) {
-            AvailableWavelengthsBuilder avalBldr = new AvailableWavelengthsBuilder()
-                    .setIndex((long) i)
-                    .withKey(new AvailableWavelengthsKey((long) i));
-            waveList.add(avalBldr.build());
-        }
-
-        return waveList;
-    }
-
     private List<AvailableWavelengths> createNumberAvalWaveDegree(int number) {
         List<AvailableWavelengths> waveList = new ArrayList<>();
 
@@ -562,27 +549,6 @@ public class OpenRoadmTopology22 {
         return waveList;
     }
 
-    private List<org.opendaylight.yang.gen.v1.http.org.openroadm.srg.rev181130.srg.node
-            .attributes.AvailableWavelengths> create40AvalWaveSrg() {
-
-        List<org.opendaylight.yang.gen.v1.http.org.openroadm.srg.rev181130.srg.node.attributes
-                .AvailableWavelengths> waveList =
-                new ArrayList<>();
-
-        for (int i = 1; i <= 40; i++) {
-            org.opendaylight.yang.gen.v1.http.org.openroadm.srg.rev181130.srg.node.attributes
-                    .AvailableWavelengthsBuilder avalBldr =
-                    new org.opendaylight.yang.gen.v1.http.org.openroadm.srg.rev181130.srg.node.attributes
-                            .AvailableWavelengthsBuilder()
-                            .setIndex((long) i)
-                            .withKey(
-                                    new org.opendaylight.yang.gen.v1.http.org.openroadm.srg.rev181130.srg.node.attributes
-                                            .AvailableWavelengthsKey((long) i));
-            waveList.add(avalBldr.build());
-        }
-
-        return waveList;
-    }
 
     private List<org.opendaylight.yang.gen.v1.http.org.openroadm.srg.rev181130.srg.node
             .attributes.AvailableWavelengths> createNumberAvalWaveSrg(int number) {

@@ -169,7 +169,6 @@ public class PceNode {
                 }
                 break;
             case XPONDER :
-                // HARD CODED 40
                 for (long i = 1; i <= OpenRoadMConstants.MAX_AVAILABLE_WAVELENGTH; i++) {
                     this.availableWLindex.add(i);
                 }
