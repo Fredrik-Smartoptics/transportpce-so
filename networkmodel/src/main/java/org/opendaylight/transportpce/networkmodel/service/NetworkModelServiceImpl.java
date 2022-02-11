@@ -75,6 +75,11 @@ public class NetworkModelServiceImpl implements NetworkModelService {
         try {
             LOG.info("createOpenROADMNode: {} ", nodeId);
 
+            if (portMapping.getNode(nodeId) != null) {
+                LOG.info("{} already exists in portmapping but was reconnected, skipping node creation", nodeId);
+                return;
+            }
+
             if (!portMapping.createMappingData(nodeId, openRoadmVersion)) {
                 LOG.warn("Could not generate port mapping for {} skipping network model creation", nodeId);
                 return;
