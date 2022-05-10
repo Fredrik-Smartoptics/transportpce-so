@@ -151,7 +151,7 @@ public class OpenRoadmTopology22 {
             }
             for (String str : nodeShardList) {
                 List<Mapping> interList = new ArrayList<>();
-                interList = mappingList.stream().filter(x -> x.getLogicalConnectionPoint().contains(str))
+                interList = mappingList.stream().filter(x -> x.getLogicalConnectionPoint().split("-")[0].equals(str))
                         .collect(Collectors.toList());
                 if (str.contains("DEG")) {
                     mapDeg.put(str, interList);
