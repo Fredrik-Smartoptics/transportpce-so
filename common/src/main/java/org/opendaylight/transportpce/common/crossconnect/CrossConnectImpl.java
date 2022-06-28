@@ -95,10 +95,10 @@ public class CrossConnectImpl implements CrossConnect {
     public boolean setPowerLevel(String nodeId, Enum mode, BigDecimal powerValue,
                                  String connectionNumber) {
         String openRoadmVersion = mappingUtils.getOpenRoadmVersion(nodeId);
-        if (openRoadmVersion.equals(OPENROADM_DEVICE_VERSION_1_2_1)) {
+        if (OPENROADM_DEVICE_VERSION_1_2_1.equals(openRoadmVersion)) {
             return crossConnectImpl121.setPowerLevel(nodeId,mode,powerValue,connectionNumber);
         }
-        else if (openRoadmVersion.equals(OPENROADM_DEVICE_VERSION_2_2_1)) {
+        else if (OPENROADM_DEVICE_VERSION_2_2_1.equals(openRoadmVersion)) {
             return crossConnectImpl221.setPowerLevel(nodeId,mode,powerValue,connectionNumber);
         }
         return false;
