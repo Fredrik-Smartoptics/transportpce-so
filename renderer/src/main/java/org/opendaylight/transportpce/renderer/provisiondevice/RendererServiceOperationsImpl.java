@@ -227,6 +227,7 @@ public class RendererServiceOperationsImpl implements RendererServiceOperations 
                         ModelMappingUtils.rendererCreateServiceInputZToA(serviceName, pathDescription);
                 // OLM turn down power
                 try {
+                    Boolean failed = false;
                     LOG.debug("Turning down power on A-to-Z path");
                     sendNotifications(ServicePathNotificationTypes.ServiceDelete,
                             input.getServiceName(), RpcStatusEx.Pending, "Turning down power on A-to-Z path");
@@ -234,11 +235,7 @@ public class RendererServiceOperationsImpl implements RendererServiceOperations 
                     // TODO add some flag rather than string
                     if (FAILED.equals(atozPowerTurndownOutput.getResult())) {
                         LOG.error("Service power turndown failed on A-to-Z path for service {}!", serviceName);
-                        sendNotifications(ServicePathNotificationTypes.ServiceDelete,
-                                input.getServiceName(), RpcStatusEx.Failed,
-                                "Service power turndown failed on A-to-Z path for service");
-                        return ModelMappingUtils.createServiceDeleteResponse(ResponseCodes.RESPONSE_FAILED,
-                                OPERATION_FAILED);
+                        failed = true;
                     }
                     LOG.debug("Turning down power on Z-to-A path");
                     sendNotifications(ServicePathNotificationTypes.ServiceDelete, input.getServiceName(),
@@ -247,9 +244,13 @@ public class RendererServiceOperationsImpl implements RendererServiceOperations 
                     // TODO add some flag rather than string
                     if (FAILED.equals(ztoaPowerTurndownOutput.getResult())) {
                         LOG.error("Service power turndown failed on Z-to-A path for service {}!", serviceName);
+                        failed = true;
+                    }
+                    if (failed) {
+                        networkModelWavelengthService.freeWavelengths(pathDescription);
                         sendNotifications(ServicePathNotificationTypes.ServiceDelete,
                                 input.getServiceName(), RpcStatusEx.Failed,
-                                "Service power turndown failed on Z-to-A path for service");
+                                "Service power turndown failed on A-to-Z path for service");
                         return ModelMappingUtils.createServiceDeleteResponse(ResponseCodes.RESPONSE_FAILED,
                                 OPERATION_FAILED);
                     }

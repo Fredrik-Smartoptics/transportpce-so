@@ -315,6 +315,7 @@ public class PowerMgmtImpl implements PowerMgmt {
         LOG.info("Olm-powerTurnDown initiated");
         /*Starting with last element into the list Z -> A for
           turning down A -> Z */
+        Boolean success = true;
         for (int i = input.getNodes().size() - 1; i >= 0; i--) {
             String nodeId = input.getNodes().get(i).getNodeId();
             String srcTpId =  input.getNodes().get(i).getSrcTp();
@@ -328,21 +329,22 @@ public class PowerMgmtImpl implements PowerMgmt {
                     if (!crossConnect.setPowerLevel(nodeId, OpticalControlMode.Power , new BigDecimal(-60),
                             connectionNumber)) {
                         LOG.warn("Power down failed for Roadm-connection: {}", connectionNumber);
-                        return false;
+                        success = false;
+                        continue;
                     }
                     Thread.sleep(OlmUtils.OLM_TIMER_2);
                     if (! crossConnect.setPowerLevel(nodeId, OpticalControlMode.Off , null, connectionNumber)) {
                         LOG.warn("Setting power-control mode off failed for Roadm-connection: {}", connectionNumber);
-                        return false;
+                        success = false;
                     }
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     LOG.error("Olm-powerTurnDown wait failed {}",e);
-                    return false;
+                    success = false;
                 }
             }
         }
-        return true;
+        return success;
     }
 
     /*

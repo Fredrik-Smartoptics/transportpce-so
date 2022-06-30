@@ -108,7 +108,13 @@ public class RendererListenerImpl implements TransportpceRendererListener {
                         }
                     } else if (serviceRpcResultSp.getStatus() == RpcStatusEx.Failed) {
                         LOG.error("Renderer service delete failed !");
-                        return;
+                        if (this.input != null) {
+                            LOG.info("sending PCE cancel resource reserve for '{}'",  this.input.getServiceName());
+                            this.pceServiceWrapper.cancelPCEResource(this.input.getServiceName(),
+                                    ServiceNotificationTypes.ServiceDeleteResult);
+                        } else {
+                            LOG.error("ServiceInput parameter is null !");
+                        }
                     }
                     break;
                 default:
